@@ -29,7 +29,7 @@ jobs:
         pyinstaller --onefile --noconsole --name="PathPresenterDownloader" app.py
 
     - name: Upload Application Package
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: PathPresenterDownloader-App
         path: dist/PathPresenterDownloader*
