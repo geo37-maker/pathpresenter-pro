@@ -31,7 +31,34 @@ jobs:
     - name: Prepare main.py
       run: |
         if [ ! -f main.py ] && [ -f app.py ]; then cp app.py main.py; fi
-        ls -la
+        if [ ! -f main.py ]; then echo "ERREUR: main.py ou app.py introuvable a la racine"; ls -la; exit 1; fi
+
+    - name: Create buildozer.spec
+      run: |
+        cat > buildozer.spec << 'EOF'
+        [app]
+        title = PathPresenterDownloader
+        package.name = pathpresenter
+        package.domain = org.pathpresenter
+        source.dir = .
+        source.include_exts = py,png,jpg,kv,atlas,json,txt
+        version = 0.1
+        requirements = python3,kivy,requests,urllib3,certifi,idna,charset-normalizer
+        orientation = portrait
+        fullscreen = 0
+        android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
+        android.api = 33
+        android.minapi = 21
+        android.ndk = 25b
+        android.archs = arm64-v8a
+        android.accept_sdk_license = True
+        android.allow_backup = True
+
+        [buildozer]
+        log_level = 2
+        warn_on_root = 1
+        EOF
+        cat buildozer.spec
 
     - name: Build APK
       run: buildozer -v android debug
