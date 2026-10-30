@@ -86,6 +86,7 @@ else:
 
         def download_slide(self, url):
             try:
+                # ضع كود التحميل ومعالجة الصور هنا باستخدام requests و PIL
                 self.status_label.text = "تم التحميل بنجاح!"
             except Exception as e:
                 self.status_label.text = f"خطأ: {str(e)}"
