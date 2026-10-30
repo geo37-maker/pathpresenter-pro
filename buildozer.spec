@@ -19,7 +19,6 @@ source.exclude_exts = spec
 source.include_patterns = assets/*,images/*.png
 
 # (list) Application requirements
-# تأكد من تضمين مكتباتك الأساسية هنا
 requirements = python3,requests,pillow,kivy
 
 # (str) Supported orientations
@@ -28,8 +27,8 @@ orientation = portrait
 # (list) Permissions
 android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
 
-# (str) Custom python main script if needed (تأكد أن التطبيق يقرأ ملف التشغيل الصحيح)
-# android.entrypoint = main.py
+# (str) Custom python main script
+android.entrypoint = main.py
 
 # (bool) Automatically accept SDK licenses
 android.accept_sdk_license = True
