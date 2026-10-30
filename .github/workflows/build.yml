@@ -26,9 +26,15 @@ jobs:
       - name: Build
         shell: bash
         run: buildozer -v android debug 2>&1 | tee build.log
-      - name: Last lines of log
+      - name: Error context
         if: failure()
-        run: tail -n 80 build.log
+        run: |
+          n=$(grep -n -m1 "Command failed" build.log | cut -d: -f1)
+          echo "line: $n"
+          start=$((n>45 ? n-45 : 1))
+          sed -n "${start},$((n+2))p" build.log | cut -c1-220
+          echo "=== error lines ==="
+          grep -n -i -E "error:|fatal error|No such file|undefined reference|not found" build.log | tail -n 15 | cut -c1-220
       - uses: actions/upload-artifact@v4
         if: always()
         with:
